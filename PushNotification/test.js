@@ -7,3 +7,5 @@ socket.on('connect', function (socket) {
     console.log('Connected!');
 });
 socket.emit('CH01', 'me', 'test msg');
+
+socket.emit("whoami", {id:"gibberish"});

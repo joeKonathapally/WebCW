@@ -53,8 +53,8 @@ CREATE TABLE "Chats" (
 
 CREATE TABLE "Sockets" (
   "SID" SERIAL NOT NULL PRIMARY KEY,
-  "SocketID" INTEGER UNIQUE,
-  "UserID" INTEGER,
+  "SocketID" INTEGER,
+  "UserID" INTEGER UNIQUE,
   "State" VARCHAR(255),
   CONSTRAINT fk_user
       FOREIGN KEY("UserID") 

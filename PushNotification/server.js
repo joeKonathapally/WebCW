@@ -1,8 +1,12 @@
 const express = require('express');
 const app = express();
+const axios = require('axios');
+require('dotenv').config();
 const bodyParser = require('body-parser');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+
+const path = "http://"+process.env.HOST+":4000/"
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -31,6 +35,16 @@ app.post('/notify', (req, res) => {
 io.on('connection', (socket) => {
   console.log(socket.id);
   console.log('a user connected');
+  socket.on("whoami", (me) => {
+    console.log(me.id);
+    axios.post(path+'sockets/create', {
+      SocketID: 123,
+      UserID: 1,
+      State: "alive"
+    }).then(function (response){
+      console.log(response);
+    })
+  });
 });
 
 const server = http.listen(3000, () => {

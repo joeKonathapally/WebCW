@@ -31,12 +31,15 @@ router.get('/find/:id', async (req,res) => {
 });
 
 router.post('/create', async (req,res) => {
+  console.log('something is happening');
   if (req.body.SocketID==undefined || req.body.UserID==undefined || req.body.State==undefined){
+    console.log(req.body);
     res.send('Provide message and creator\'s user ID!');
   } else {
     try{
       let results = await Socket.createSocket(req.body.SocketID, req.body.UserID, req.body.State);
       console.log(results);
+      console.log('doing this as we can be');
       res.send('Successfully created event!');
     } catch(e) {
       res.json(e).send();
