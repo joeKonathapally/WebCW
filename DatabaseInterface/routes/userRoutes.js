@@ -6,7 +6,7 @@ router.get('/', async (req,res) => {
   try{
     let results = await User.readUsers();
     if(results.length==0){
-      res.send('No users!');
+      res.send([]);
   
     } else {
       res.json(results).send();
@@ -20,7 +20,7 @@ router.get('/find/:id', async (req,res) => {
   try{
     let results = await User.readUser(req.params.id);
     if(results.length==0){
-      res.send('No such user exists!');
+      res.send([]);
   
     } else {
       res.json(results[0]).send();

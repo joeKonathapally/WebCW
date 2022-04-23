@@ -16,6 +16,19 @@ services:
       - backend
     volumes:
       - ./Database:/docker-entrypoint-initdb.d/
+
+  dbinterface:
+    build:
+      context: ./DatabaseInterface
+    container_name: db_interface
+    restart: always
+    hostname: db_interface
+    ports:
+      - "4000:4000"
+    networks:
+      - backend
+    depends_on:
+      - db
   
   pgadmin:
     container_name: pgadmin4_container
