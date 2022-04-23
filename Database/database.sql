@@ -39,7 +39,7 @@ CREATE TABLE "Events" (
 );
 
 CREATE TABLE "Chats" (
-    "MessageID" SERIAL NOT NULL PRIMARY KEY,
+    "ChatID" SERIAL NOT NULL PRIMARY KEY,
     "Message" varchar(255) NOT NULL,
     "CreatedAt" varchar(255),
     "UpdatedAt" varchar(255),
