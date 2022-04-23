@@ -7,6 +7,7 @@ const userRoutes = require('./routes/userRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const postRoutes = require('./routes/postRoutes');
 const eventRoutes = require('./routes/eventRoutes');
+const socketRoutes = require('./routes/socketRoutes');
 
 const port = 4000;
 
@@ -17,6 +18,7 @@ app.use('/users', userRoutes);
 app.use('/chats', chatRoutes);
 app.use('/events', eventRoutes);
 app.use('/posts', postRoutes);
+app.use('/sockets', socketRoutes);
 
 app.listen(port, () => {
   console.log(`Success! Your application is running on port ${port}.`);

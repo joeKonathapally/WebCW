@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS "Users";
 DROP TABLE IF EXISTS "Posts";
 DROP TABLE IF EXISTS "Events";
 DROP TABLE IF EXISTS "Chats";
+DROP TABLE IF EXISTS "Sockets";
 
 CREATE TABLE "Users" (
     "UserID" SERIAL NOT NULL PRIMARY KEY,
@@ -49,3 +50,22 @@ CREATE TABLE "Chats" (
       REFERENCES "Users"("UserID")
       ON DELETE CASCADE
 );
+
+CREATE TABLE "Sockets" (
+  "SID" SERIAL NOT NULL PRIMARY KEY,
+  "SocketID" INTEGER UNIQUE,
+  "UserID" INTEGER,
+  "State" VARCHAR(255),
+  CONSTRAINT fk_user
+      FOREIGN KEY("UserID") 
+      REFERENCES "Users"("UserID")
+      ON DELETE CASCADE
+);
+
+-- Loading test data
+
+INSERT INTO "Users" VALUES(DEFAULT, 'jamesBond', '123456', 'jamesBond@gmail.com', 'student');
+INSERT INTO "Users" VALUES(DEFAULT, 'leslieWilkins', '123456', 'leslieWilkins@gmail.com', 'student');
+INSERT INTO "Users" VALUES(DEFAULT, 'irvingSmith', '123456', 'irvingSmith@gmail.com', 'alumni');
+INSERT INTO "Users" VALUES(DEFAULT, 'ericAkers', '123456', 'ericAkers@gmail.com', 'student');
+INSERT INTO "Users" VALUES(DEFAULT, 'howardTulley', '123456', 'howardTulley@gmail.com', 'alumni');
