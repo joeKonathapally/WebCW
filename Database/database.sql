@@ -66,7 +66,7 @@ CREATE TABLE "Sockets" (
 CREATE TABLE "Notifications" (
   "NotificationID" SERIAL NOT NULL PRIMARY KEY,
   "Payload" VARCHAR(255),
-  "UserID" INTEGER UNIQUE,
+  "UserID" INTEGER,
   "CreatedAt" VARCHAR(255),
   CONSTRAINT fk_user
       FOREIGN KEY("UserID") 

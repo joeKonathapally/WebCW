@@ -12,33 +12,39 @@ const path = "http://"+process.env.HOST+":4000/"
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-const messages = [
-  {name: "Tim", message: "yo"},
-  {name: "Pam", message: "hi"}
-]
-
-app.get('/messages', (req, res) => {
-  res.send(messages);
-})
-
-app.post('/message', (req, res) => {
-  messages.push(req.body);
-  io.emit('message', req.body);
-  res.sendStatus(200);
-})
-
 app.post('/notify', (req, res) => {
   let Payload = req.body.Payload;
   let UserID = req.body.UserID;
   axios.get(
     path+'sockets/find/'+UserID,
   ).then(function (response){
-    if(response.data.length==0){
-      
+    if(response.data.length!=0){
+      if(response.data.State=="Alive"){
+        io.to(response.data.SocketID).emit("notification", Payload);
+      } else {
+        axios.post(
+          path+'notifications/create',
+          {
+            Payload: Payload,
+            UserID: UserID
+          },
+          {"headers":{"content-type": "application/json"}}
+        ).then(function (response){
+          console.log('Cached notification!');
+        });
+      }
     } else {
-
+      axios.post(
+        path+'notifications/create',
+        {
+          Payload: Payload,
+          UserID: UserID
+        },
+        {"headers":{"content-type": "application/json"}}
+      ).then(function (response){
+        console.log('Cached notification!');
+      });
     }
-    console.log(response);
     res.status(200).send();
   });
 });
@@ -46,13 +52,15 @@ app.post('/notify', (req, res) => {
 io.on('connection', (socket) => {
   console.log('a user connected');
 
+  let validSession = false;
+
   socket.on("whoami", (me) => {
     const decode = jwt.verify(me,'shhh');
+    validSession = true;
     console.log(socket.id);
     axios.get(
       path+'sockets/find/'+decode.UserID
     ).then(function (response){
-      // console.log(response.data)
       if(response.data.length==0){
         axios.post(
           path+'sockets/create', 
@@ -64,8 +72,6 @@ io.on('connection', (socket) => {
           {"headers":{"content-type": "application/json",}}
         );
       } else {
-        console.log('reaching the update portion');
-        console.log(response.data.SID);
         axios.post(
           path+'sockets/update/'+response.data.SID, 
           {
@@ -74,14 +80,37 @@ io.on('connection', (socket) => {
           },
           {"headers":{"content-type": "application/json",}}
         ).then(function (response){
-          console.log(response);
         });
       }
     })
   });
 
+  socket.on("pending", ()=>{
+    if(validSession){
+      axios.get(
+        path+'sockets/findBySocketID/'+socket.id,
+        {"headers":{"content-type": "application/json",}}
+      ).then(function (response){
+        // console.log(response.data.UserID);
+        axios.get(
+          path+'notifications/findByUserID/'+response.data.UserID,
+        ).then(function (response){
+          for(let i=0; i<response.data.length;i++){
+            socket.emit("notification", response.data[i].Payload)
+          }
+          for(let i=0; i<response.data.length;i++){
+            axios.get(
+              path+'notifications/delete/'+response.data[i].NotificationID
+            ).then(function (response){
+              console.log('Cleared cache');
+            });
+          }
+        });
+      });
+    }
+  })
+
   socket.on('disconnect', ()=>{
-    console.log('monkey jumping');
     console.log(socket.id);
     axios.get(
       path+'sockets/findBySocketID/'+socket.id,

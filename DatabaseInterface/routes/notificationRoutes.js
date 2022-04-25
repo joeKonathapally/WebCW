@@ -30,6 +30,20 @@ router.get('/find/:id', async (req,res) => {
   }
 });
 
+router.get('/findByUserID/:id', async (req,res) => {
+  try{
+    let results = await Notification.readNotificationUID(req.params.id);
+    if(results.length==0){
+      res.status(200).send([]);
+  
+    } else {
+      res.status(200).json(results).send();
+    }
+  } catch(e) {
+    res.status(500).json(e).send();
+  }
+});
+
 router.post('/create', async (req,res) => {
   if (req.body.Payload==undefined || req.body.UserID==undefined){
     res.status(400).send('Provide Payload and UserID!');

@@ -60,11 +60,9 @@ router.post('/create', async (req,res) => {
 router.post('/update/:id', async (req,res) => {
   try{
     let results = await Socket.readSocketSID(req.params.id);
-    console.log(results);
     if(results.length==0){
       res.status(200).send('No such socket exists!');
     } else {
-      console.log("entering the actual update")
       try{
         results = results[0];
         let updates = {};

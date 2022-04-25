@@ -12,7 +12,7 @@ socket.on('notification', function(notification){
   console.log(notification);
 })
 
-const whoami = jwt.sign({UserID: 2}, 'shhh');
+const whoami = jwt.sign({UserID: 3}, 'shhh');
 
 socket.emit("whoami", whoami);
 
