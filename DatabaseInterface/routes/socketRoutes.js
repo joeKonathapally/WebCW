@@ -6,13 +6,13 @@ router.get('/', async (req,res) => {
   try{
     let results = await Socket.readSockets();
     if(results.length==0){
-      res.send([]);
+      res.status(200).send([]);
   
     } else {
-      res.json(results).send();
+      res.status(200).json(results).send();
     }
   } catch(e) {
-    res.json(e).send();
+    res.status(500).json(e).send();
   }
 });
 
@@ -20,39 +20,51 @@ router.get('/find/:id', async (req,res) => {
   try{
     let results = await Socket.readSocket(req.params.id);
     if(results.length==0){
-      res.send([]);
+      res.status(200).send([]);
   
     } else {
-      res.json(results[0]).send();
+      res.status(200).json(results[0]).send();
     }
   } catch(e) {
-    res.json(e).send();
+    res.status(500).json(e).send();
+  }
+});
+
+router.get('/findBySocketID/:id', async (req,res) => {
+  try{
+    let results = await Socket.readSocketID(req.params.id);
+    if(results.length==0){
+      res.status(200).send([]);
+  
+    } else {
+      res.status(200).json(results[0]).send();
+    }
+  } catch(e) {
+    res.status(500).json(e).send();
   }
 });
 
 router.post('/create', async (req,res) => {
-  console.log('something is happening');
   if (req.body.SocketID==undefined || req.body.UserID==undefined || req.body.State==undefined){
-    console.log(req.body);
-    res.send('Provide message and creator\'s user ID!');
+    res.status(400).send('Provide SocketID, UserID and State!');
   } else {
     try{
       let results = await Socket.createSocket(req.body.SocketID, req.body.UserID, req.body.State);
-      console.log(results);
-      console.log('doing this as we can be');
-      res.send('Successfully created event!');
+      res.status(200).send('Successfully created socket!');
     } catch(e) {
-      res.json(e).send();
+      res.status(500).json(e).send();
     }
   }
 });
 
 router.post('/update/:id', async (req,res) => {
   try{
-    let results = await Socket.readSocket(req.params.id);
+    let results = await Socket.readSocketSID(req.params.id);
+    console.log(results);
     if(results.length==0){
-      res.send('No such event exists!');
+      res.status(200).send('No such socket exists!');
     } else {
+      console.log("entering the actual update")
       try{
         results = results[0];
         let updates = {};
@@ -61,20 +73,15 @@ router.post('/update/:id', async (req,res) => {
         } else {
           updates.SocketID = req.body.SocketID;
         }
-        if(req.body.UserID==undefined){
-          updates.UserID = results.UserID;
-        } else {
-          updates.UserID = req.body.UserID;
-        }
         if(req.body.State==undefined){
           updates.State = results.State;
         } else {
           updates.State = req.body.State;
         }
-        results = await Socket.updateSocket(updates.SocketID, updates.UserID, updates.State, req.params.id);
-        res.send('Successfully updated event!');
+        results = await Socket.updateSocket(updates.SocketID, updates.State, req.params.id);
+        res.status(200).send('Successfully updated event!');
       } catch(e) {
-        res.json(e).send();
+        res.status(500).json(e).send();
       }
     }
   } catch(e) {
@@ -86,12 +93,12 @@ router.get('/delete/:id', async (req,res) => {
   try{
     let results = await Socket.deleteSocket(req.params.id);
     if(results==0){
-      res.send('No such event exists!');
+      res.status(200).send('No such event exists!');
     } else {
-      res.send('Deleted event!');
+      res.status(200).send('Deleted event!');
     }
   } catch(e) {
-    res.json(e).send();
+    res.status(500).json(e).send();
   }
 });
 

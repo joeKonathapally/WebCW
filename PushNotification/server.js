@@ -5,6 +5,7 @@ require('dotenv').config();
 const bodyParser = require('body-parser');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+const jwt = require('jsonwebtoken');
 
 const path = "http://"+process.env.HOST+":4000/"
 
@@ -27,24 +28,76 @@ app.post('/message', (req, res) => {
 })
 
 app.post('/notify', (req, res) => {
-  let payload = req.body.payload;
+  let Payload = req.body.Payload;
   let UserID = req.body.UserID;
+  axios.get(
+    path+'sockets/find/'+UserID,
+  ).then(function (response){
+    if(response.data.length==0){
+      
+    } else {
 
+    }
+    console.log(response);
+    res.status(200).send();
+  });
 });
 
 io.on('connection', (socket) => {
-  console.log(socket.id);
   console.log('a user connected');
+
   socket.on("whoami", (me) => {
-    console.log(me.id);
-    axios.post(path+'sockets/create', {
-      SocketID: 123,
-      UserID: 1,
-      State: "alive"
-    }).then(function (response){
-      console.log(response);
+    const decode = jwt.verify(me,'shhh');
+    console.log(socket.id);
+    axios.get(
+      path+'sockets/find/'+decode.UserID
+    ).then(function (response){
+      // console.log(response.data)
+      if(response.data.length==0){
+        axios.post(
+          path+'sockets/create', 
+          {
+            SocketID: socket.id,
+            UserID: decode.UserID,
+            State: "Alive"
+          },
+          {"headers":{"content-type": "application/json",}}
+        );
+      } else {
+        console.log('reaching the update portion');
+        console.log(response.data.SID);
+        axios.post(
+          path+'sockets/update/'+response.data.SID, 
+          {
+            SocketID: socket.id,
+            State: "Alive"
+          },
+          {"headers":{"content-type": "application/json",}}
+        ).then(function (response){
+          console.log(response);
+        });
+      }
     })
   });
+
+  socket.on('disconnect', ()=>{
+    console.log('monkey jumping');
+    console.log(socket.id);
+    axios.get(
+      path+'sockets/findBySocketID/'+socket.id,
+      {"headers":{"content-type": "application/json",}}
+    ).then(function (response){
+      axios.post(
+        path+'sockets/update/'+response.data.SID, 
+        {
+          State: "Dead"
+        },
+        {"headers":{"content-type": "application/json",}}
+      );
+    });
+    console.log('disconnected');
+  });
+
 });
 
 const server = http.listen(3000, () => {
