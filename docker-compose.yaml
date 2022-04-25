@@ -22,13 +22,26 @@ services:
       context: ./DatabaseInterface
     container_name: db_interface
     restart: always
-    hostname: db_interface
+    hostname: dbinterface
     ports:
       - "4000:4000"
     networks:
       - backend
     depends_on:
       - db
+
+  pushnotification:
+    build:
+      context: ./PushNotification
+    container_name: push_notification
+    restart: always
+    hostname: pushnotification
+    ports:
+      - "3000:3000"
+    networks:
+      - backend
+    depends_on:
+      - dbinterface
   
   pgadmin:
     container_name: pgadmin4_container

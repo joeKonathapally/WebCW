@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS "Posts";
 DROP TABLE IF EXISTS "Events";
 DROP TABLE IF EXISTS "Chats";
 DROP TABLE IF EXISTS "Sockets";
+DROP TABLE IF EXISTS "Notifications";
 
 CREATE TABLE "Users" (
     "UserID" SERIAL NOT NULL PRIMARY KEY,
@@ -53,9 +54,20 @@ CREATE TABLE "Chats" (
 
 CREATE TABLE "Sockets" (
   "SID" SERIAL NOT NULL PRIMARY KEY,
-  "SocketID" INTEGER,
+  "SocketID" VARCHAR(255),
   "UserID" INTEGER UNIQUE,
   "State" VARCHAR(255),
+  CONSTRAINT fk_user
+      FOREIGN KEY("UserID") 
+      REFERENCES "Users"("UserID")
+      ON DELETE CASCADE
+);
+
+CREATE TABLE "Notifications" (
+  "NotificationID" SERIAL NOT NULL PRIMARY KEY,
+  "Payload" VARCHAR(255),
+  "UserID" INTEGER,
+  "CreatedAt" VARCHAR(255),
   CONSTRAINT fk_user
       FOREIGN KEY("UserID") 
       REFERENCES "Users"("UserID")
