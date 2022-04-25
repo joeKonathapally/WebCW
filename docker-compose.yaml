@@ -17,18 +17,31 @@ services:
     volumes:
       - ./Database:/docker-entrypoint-initdb.d/
 
-  # dbinterface:
+  dbinterface:
+    build:
+      context: ./DatabaseInterface
+    container_name: db_interface
+    restart: always
+    hostname: db_interface
+    ports:
+      - "4000:4000"
+    networks:
+      - backend
+    depends_on:
+      - db
+
+  # pushnotification:
   #   build:
-  #     context: ./DatabaseInterface
-  #   container_name: db_interface
+  #     context: ./PushNotification
+  #   container_name: push_notification
   #   restart: always
-  #   hostname: db_interface
+  #   hostname: push_notification
   #   ports:
-  #     - "4000:4000"
+  #     - "3000:3000"
   #   networks:
   #     - backend
   #   depends_on:
-  #     - db
+  #     - dbinterface
   
   pgadmin:
     container_name: pgadmin4_container
