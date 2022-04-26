@@ -66,7 +66,7 @@ CREATE TABLE "Chats" (
       REFERENCES "ChatRooms"("ChatRoomID")
 );
 
-CREATE TABLE "ChatRoomMembership" (
+CREATE TABLE "ChatRoomMemberships" (
   "CRMID" SERIAL NOT NULL PRIMARY KEY,
   "ChatRoomID" INTEGER,
   "UserID" INTEGER,
