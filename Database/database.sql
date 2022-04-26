@@ -40,16 +40,43 @@ CREATE TABLE "Events" (
       ON DELETE CASCADE
 );
 
+CREATE TABLE "ChatRooms" (
+  "ChatRoomID" SERIAL NOT NULL PRIMARY KEY,
+  "Title" VARCHAR(255),
+  "CreatedAt" VARCHAR(255),
+  "ChatRoomType" VARCHAR(255),
+  "CreatedBy" INTEGER,
+  CONSTRAINT fk_user
+    FOREIGN KEY("CreatedBy")
+    REFERENCES "Users"("UserID")
+);
+
 CREATE TABLE "Chats" (
     "ChatID" SERIAL NOT NULL PRIMARY KEY,
     "Message" varchar(255) NOT NULL,
+    "ChatRoomID" INTEGER,
     "CreatedAt" varchar(255),
     "UpdatedAt" varchar(255),
     "CreatedByID" INTEGER,
     CONSTRAINT fk_user
       FOREIGN KEY("CreatedByID") 
-      REFERENCES "Users"("UserID")
-      ON DELETE CASCADE
+      REFERENCES "Users"("UserID"),
+    CONSTRAINT fk_chatroom
+      FOREIGN KEY("ChatRoomID")
+      REFERENCES "ChatRooms"("ChatRoomID")
+);
+
+CREATE TABLE "ChatRoomMemberships" (
+  "CRMID" SERIAL NOT NULL PRIMARY KEY,
+  "ChatRoomID" INTEGER,
+  "UserID" INTEGER,
+  "ChatRoomType" VARCHAR(255),
+  CONSTRAINT fk_user
+    FOREIGN KEY("UserID")
+    REFERENCES "Users"("UserID"),
+  CONSTRAINT fk_chatroom
+    FOREIGN KEY("ChatRoomID")
+    REFERENCES "ChatRooms"("ChatRoomID")
 );
 
 CREATE TABLE "Sockets" (
