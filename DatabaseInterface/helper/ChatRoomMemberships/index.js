@@ -1,13 +1,15 @@
-const { readChat } = require('./readChat');
-const { readChats } = require('./readChats');
-const { createChat } = require('./createChat');
-const { deleteChat } = require('./deleteChat');
-const { updateChat } = require('./updateChat');
+const { readChatRoomMembership } = require('./readChatRoomMembership');
+const { readChatRoomMembershipCRM } = require('./readChatRoomMembershipCRM');
+const { readChatRoomMemberships } = require('./readChatRoomMemberships');
+const { createChatRoomMembership } = require('./createChatRoomMembership');
+const { deleteChatRoomMembership } = require('./deleteChatRoomMembership');
+const { updateChatRoomMembership } = require('./updateChatRoomMembership');
 
 module.exports = {
-  readChat,
-  readChats,
-  createChat,
-  deleteChat,
-  updateChat
+  readChatRoomMembership,
+  readChatRoomMembershipCRM,
+  readChatRoomMemberships,
+  createChatRoomMembership,
+  deleteChatRoomMembership,
+  updateChatRoomMembership
 };
