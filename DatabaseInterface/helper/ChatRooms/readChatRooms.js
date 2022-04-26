@@ -1,10 +1,10 @@
 const { getClient } = require('../getClient');
 
-async function readChat(id) {
+async function readChatRooms() {
   const client = await getClient();
   let results;
   try{
-    results = await client.query('SELECT * FROM \"Chats\" WHERE \"ChatRoomID\" = $1;', [`${id}`]);
+    results = await client.query('SELECT * FROM \"ChatRooms\";');
   } catch(e) {
     await client.end();
     throw(e)
@@ -14,5 +14,5 @@ async function readChat(id) {
 };
 
 module.exports = {
-  readChat
+  readChatRooms
 }

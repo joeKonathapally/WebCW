@@ -1,11 +1,11 @@
 const { getClient } = require('../getClient');
 const timestamp = require('time-stamp');
 
-async function createChat(message, createdByID, chatRoomID) {
+async function createChatRoom(title, createdByID, chatRoomType) {
   const client = await getClient();
   try{
     let tp = timestamp('YYYY/MM/DD:mm:ss');
-    let results = await client.query('INSERT INTO \"Chats\" VALUES(DEFAULT, $1, $5, $2, $3, $4);', [`${message}`, `${tp}`, `${tp}`, `${createdByID}`, `${chatRoomID}`]);
+    let results = await client.query('INSERT INTO \"ChatRooms\" VALUES(DEFAULT, $1, $5, $2, $3, $4);', [`${title}`, `${tp}`, `${chatRoomType}`, `${createdByID}`]);
   } catch(e) {
     await client.end();
     throw(e)
@@ -15,5 +15,5 @@ async function createChat(message, createdByID, chatRoomID) {
 };
 
 module.exports = {
-  createChat
+  createChatRoom
 }
