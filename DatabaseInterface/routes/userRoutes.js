@@ -30,6 +30,20 @@ router.get('/find/:id', async (req,res) => {
   }
 });
 
+router.get('/findByEmail/:email', async (req,res) => {
+  try{
+    let results = await User.readUserEmail(req.params.email);
+    if(results.length==0){
+      res.send([]);
+  
+    } else {
+      res.json(results[0]).send();
+    }
+  } catch(e) {
+    res.json(e).send();
+  }
+});
+
 router.post('/create', async (req,res) => {
   if (req.query.UserName==undefined || req.query.Password==undefined || req.query.Email==undefined || req.query.UserType==undefined){
     res.send('Provide username, password, email and usertype!');
