@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 require('dotenv').config();
 const app = express();
+const jwt = require('jsonwebtoken');
 
 const dbpath = "http://"+process.env.DB_HOST+":4000/";
 const pnpath = "http://"+process.env.PN_HOST+":3000/";
@@ -23,6 +24,27 @@ app.post('/findUserByEmail/', (req, res) => {
     if(response.data.length==0){
       res.status(200).send([]);
     } else {
+      res.status(200).send([response.data]);
+    }
+  }).catch(function (error){
+    res.send(error);
+  });
+});
+
+app.post('/login/', (req, res) => {
+  axios.post(dbpath+'users/findByEmail',
+    {
+      "Email": req.body.Email
+    },
+    {"headers":{"content-type": "application/json"}}
+  ).then(function (response){
+    if(response.data.length==0){
+      res.status(200).send([]);
+    } else {
+      if(response.data.Password==req.body.Password){
+        user_token = jwt.sign({UserID: response.data.UserID}, 'shhh');
+        res.status(200).send({user_token: user_token});
+      }
       res.status(200).send([response.data]);
     }
   }).catch(function (error){

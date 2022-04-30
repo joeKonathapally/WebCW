@@ -43,18 +43,18 @@ services:
     depends_on:
       - dbinterface
 
-  authentication:
-    build:
-      context: ./Authentication
-    container_name: authentication
-    restart: always
-    hostname: authentication
-    ports:
-      - "2000:2000"
-    networks:
-      - backend
-    depends_on:
-      - dbinterface
+  # authentication:
+  #   build:
+  #     context: ./Authentication
+  #   container_name: authentication
+  #   restart: always
+  #   hostname: authentication
+  #   ports:
+  #     - "2000:2000"
+  #   networks:
+  #     - backend
+  #   depends_on:
+  #     - dbinterface
   
   pgadmin:
     container_name: pgadmin4_container
