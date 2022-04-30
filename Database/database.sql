@@ -108,3 +108,9 @@ INSERT INTO "Users" VALUES(DEFAULT, 'leslieWilkins', '123456', 'leslieWilkins@gm
 INSERT INTO "Users" VALUES(DEFAULT, 'irvingSmith', '123456', 'irvingSmith@gmail.com', 'alumni');
 INSERT INTO "Users" VALUES(DEFAULT, 'ericAkers', '123456', 'ericAkers@gmail.com', 'student');
 INSERT INTO "Users" VALUES(DEFAULT, 'howardTulley', '123456', 'howardTulley@gmail.com', 'alumni');
+
+INSERT INTO "Posts" VALUES(DEFAULT, 'This is a 1 post', '202004031234', '202004031234',1);
+INSERT INTO "Posts" VALUES(DEFAULT, 'This is a 2 post', '202004031234', '202004031234',1);
+INSERT INTO "Posts" VALUES(DEFAULT, 'This is a 3 post', '202004031234', '202004031234',2);
+INSERT INTO "Posts" VALUES(DEFAULT, 'This is a 4 post', '202004031234', '202004031234',2);
+INSERT INTO "Posts" VALUES(DEFAULT, 'This is a 5 post', '202004031234', '202004031234',1);
