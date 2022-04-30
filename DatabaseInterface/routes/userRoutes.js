@@ -30,9 +30,9 @@ router.get('/find/:id', async (req,res) => {
   }
 });
 
-router.get('/findByEmail/:email', async (req,res) => {
+router.post('/findByEmail', async (req,res) => {
   try{
-    let results = await User.readUserEmail(req.params.email);
+    let results = await User.readUserEmail(req.body.Email);
     if(results.length==0){
       res.send([]);
   
