@@ -10,28 +10,99 @@ const jwt = require('jsonwebtoken');
 const dbpath = "http://"+process.env.DB_HOST+":4000/";
 const pnpath = "http://"+process.env.PN_HOST+":3000/";
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 const port = 6000;
 
-app.get('/getChats/:id', (req, res) => {
+// APIs for EVENTS: 
+// 1.getEvents - Retrieves all posts
+// 2.getEventsbyID - Retrieves a post based on Post ID
+// 3.createEvents - Creates a post with a message and user name
+// 4.updateEvent - Updates the message of a post using it's ID
+// 5.deleteEventsbyID - Deletes a post based on Post ID
 
-});
 
-app.get('/getChatRooms', (req, res) => {
+// Retrieves all events
+app.get('/getEvents', (req, res) => {
+  axios.get(dbpath+'events/').then(function (response){
+    if(response.data=="No Events!"){
+      res.status(200).send(response.data);
+    } else {
+      res.status(200).send(response.data);
+    }
+  }).catch(function (error){
+    res.send(error);
+  });
+})
 
-});
+//Retrieving Events by userID
+app.get('/getEventsbyID/:id', (req, res) => {
+  axios.get(dbpath+'events/find/'+req.params.id).then(function (response){
+    if(response.data=="No Event!"){
+      res.status(200).send(response.data);
+    } else {
+      res.status(200).send(response.data);
+    }
+  }).catch(function (error){
+    res.send(error);
+  });
+})
 
-app.get('/joinChatRoom/:id' (req, res) => {
+// Creating Events by userID
+app.post('/createEvent', (req, res) => {
+  axios.post(
+    dbpath+'events/create',
+    {
+      EventTitle: req.body.EventTitle,
+      Message: req.body.Message,
+      CreatedBy:req.body.CreatedBy
+    },
+    {"headers":{"content-type": "application/json"}}
+  ).then(function (response){
+    if(response.data=="'Provide message and creator\'s user ID!'"){
+      res.status(200).send(response.data);
+    } else {
+      res.status(200).send('Successfully created event!');
+    }
+  }).catch(function (error){
+    res.send(error);
+  });
+})
 
-});
+// Updating Events by userID
+app.post('/updateEvent/:id', (req, res) => {
+  axios.post(
+    dbpath+'events/update/'+req.params.id,
+    {
+      EventTitle: req.body.EventTitle,
+      Message: req.body.Message,
+      CreatedBy: req.body.CreatedBy
+    },
+    {"headers":{"content-type": "application/json"}}
+  ).then(function (response){
+    if(response.data=="No such post exists!"){
+      res.status(200).send(response.data);
+    } else {
+      res.status(200).send('Successfully updated post!');
+    }
+  }).catch(function (error){
+    res.send(error);
+  });
+})
 
-app.get('/createChatRoom', (req, res) => {
-
-});
-
-app.get('/leaveChatRoom/:id', (req, res) => {
-
-});
+// Deleting Events based on PostID
+app.get('/deleteEventsbyID/:id', (req, res) => {
+  axios.get(dbpath+'events/delete/'+req.params.id).then(function (response){
+    if(response.data=="No posts!"){
+      res.status(200).send([]);
+    } else {
+      res.status(200).send(response.data);
+    }
+  }).catch(function (error){
+    res.send(error);
+  });
+})
 
 
 app.listen(port, () => {
