@@ -71,6 +71,8 @@ app.post('/createPosts', (req, res) => {
   });
 })
 
+
+
 // Updating Posts by userID
 app.post('/updatePost/:id', (req, res) => {
   axios.post(
