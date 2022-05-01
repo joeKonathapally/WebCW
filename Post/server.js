@@ -1,10 +1,12 @@
 // server.js
 const express = require('express');
+//const cors = require("cors");
 const bodyParser = require('body-parser');
 const app = express();
 const axios = require('axios');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const cors = require("cors");
 
 const dbpath = "http://"+process.env.DB_HOST+":4000/";
 const pnpath = "http://"+process.env.PN_HOST+":3000/";
@@ -12,10 +14,11 @@ const pnpath = "http://"+process.env.PN_HOST+":3000/";
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+app.use(cors());
 
 const port = 7000;
 
-// APIs for POST: 
+// APIs for POST:
 // 1.getPosts - Retrieves all posts
 // 2.getPostsbyID - Retrieves a post based on Post ID
 // 3.createPosts - Creates a post with a message and user name

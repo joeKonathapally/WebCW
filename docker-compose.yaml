@@ -1,6 +1,6 @@
 version: '3.8'
-services:  
-  
+services:
+
   db:
     container_name: pg_container
     image: postgres
@@ -55,7 +55,7 @@ services:
   #     - backend
   #   depends_on:
   #     - dbinterface
-  
+
   pgadmin:
     container_name: pgadmin4_container
     image: dpage/pgadmin4
