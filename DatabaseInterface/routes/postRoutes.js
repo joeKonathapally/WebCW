@@ -9,7 +9,7 @@ router.get('/', async (req,res) => {
       res.send('No posts!');
   
     } else {
-      res.json(results).send();
+        res.json(results).send();
     }
   } catch(e) {
     res.json(e).send();
@@ -31,11 +31,11 @@ router.get('/find/:id', async (req,res) => {
 });
 
 router.post('/create', async (req,res) => {
-  if (req.body.Message==undefined || req.query.CreatedBy==undefined){
+  if (req.body.Message==undefined || req.body.CreatedBy==undefined){
     res.send('Provide message and creator\'s user ID!');
   } else {
     try{
-      let results = await Post.createPost(req.body.Message, req.query.CreatedBy);
+      let results = await Post.createPost(req.body.Message, req.body.CreatedBy);
       console.log(results);
       res.send('Successfully created post!');
     } catch(e) {
