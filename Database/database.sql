@@ -103,11 +103,11 @@ CREATE TABLE "Notifications" (
 
 -- Loading test data
 
-INSERT INTO "Users" VALUES(DEFAULT, 'jamesBond', '123456', 'jamesBond@gmail.com', 'student');
-INSERT INTO "Users" VALUES(DEFAULT, 'leslieWilkins', '123456', 'leslieWilkins@gmail.com', 'student');
-INSERT INTO "Users" VALUES(DEFAULT, 'irvingSmith', '123456', 'irvingSmith@gmail.com', 'alumni');
-INSERT INTO "Users" VALUES(DEFAULT, 'ericAkers', '123456', 'ericAkers@gmail.com', 'student');
-INSERT INTO "Users" VALUES(DEFAULT, 'howardTulley', '123456', 'howardTulley@gmail.com', 'alumni');
+INSERT INTO "Users" VALUES(DEFAULT, 'jamesBond', '12345678', 'jamesBond@gmail.com', 'student');
+INSERT INTO "Users" VALUES(DEFAULT, 'leslieWilkins', '12345678', 'leslieWilkins@gmail.com', 'student');
+INSERT INTO "Users" VALUES(DEFAULT, 'irvingSmith', '12345678', 'irvingSmith@gmail.com', 'alumni');
+INSERT INTO "Users" VALUES(DEFAULT, 'ericAkers', '12345678', 'ericAkers@gmail.com', 'student');
+INSERT INTO "Users" VALUES(DEFAULT, 'howardTulley', '12345678', 'howardTulley@gmail.com', 'alumni');
 
 INSERT INTO "Posts" VALUES(DEFAULT, 'This is a 1 post', '202004031234', '202004031234',1);
 INSERT INTO "Posts" VALUES(DEFAULT, 'This is a 2 post', '202004031234', '202004031234',1);
