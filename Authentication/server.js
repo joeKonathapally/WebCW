@@ -52,6 +52,29 @@ app.post('/login/', (req, res) => {
   });
 });
 
+app.post('/signup/', (req, res) => {
+  axios.post(dbpath+'users/create',
+    {
+      "UserName": req.body.UserName,
+      "Email": req.body.Email,
+      "Password": req.body.Password,
+      "UserType": req.body.UserType
+    },
+    {"headers":{"content-type": "application/json"}}
+  ).then(function (response){
+    axios.post(dbpath+'users/findByUserName',
+    {
+      "UserName": req.body.UserName
+    },
+    {"headers":{"content-type": "application/json"}}
+    ).then(function (response){
+      res.send({UserID: response.data.UserID});
+    });
+  }).catch(function (error){
+    res.send('Username is taken!');
+  });
+});
+
 app.listen(port, () => {
   console.log(`Success! Your application is running on port ${port}.`);
 });

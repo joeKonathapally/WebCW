@@ -44,16 +44,29 @@ router.post('/findByEmail', async (req,res) => {
   }
 });
 
+router.post('/findByUserName', async (req,res) => {
+  try{
+    let results = await User.readUserName(req.body.UserName);
+    if(results.length==0){
+      res.send([]);
+  
+    } else {
+      res.json(results[0]).send();
+    }
+  } catch(e) {
+    res.json(e).send();
+  }
+});
+
 router.post('/create', async (req,res) => {
-  if (req.query.UserName==undefined || req.query.Password==undefined || req.query.Email==undefined || req.query.UserType==undefined){
+  if (req.body.UserName==undefined || req.body.Password==undefined || req.body.Email==undefined || req.body.UserType==undefined){
     res.send('Provide username, password, email and usertype!');
   } else {
     try{
-      let results = await User.createUser(req.query.UserName, req.query.Password, req.query.Email, req.query.UserType);
-      console.log(results);
+      let results = await User.createUser(req.body.UserName, req.body.Password, req.body.Email, req.body.UserType);
       res.send('Successfully created user!');
     } catch(e) {
-      res.json(e).send();
+      res.status(500).json(e).send();
     }
   }
 });

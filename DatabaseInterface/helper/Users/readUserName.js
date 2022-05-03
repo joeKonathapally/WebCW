@@ -1,10 +1,10 @@
 const { getClient } = require('../getClient');
 
-async function readChats() {
+async function readUserName(name) {
   const client = await getClient();
   let results;
   try{
-    results = await client.query('SELECT * FROM \"Chats\";');
+    results = await client.query('SELECT * FROM \"Users\" WHERE \"UserName\" = $1;', [`${name}`]);
   } catch(e) {
     await client.end();
     throw(e)
@@ -14,5 +14,5 @@ async function readChats() {
 };
 
 module.exports = {
-  readChats
+  readUserName
 }

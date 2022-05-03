@@ -20,7 +20,7 @@ router.get('/find/:id', async (req,res) => {
   try{
     let results = await Chat.readChat(req.params.id);
     if(results.length==0){
-      res.send('No such chat exists!');
+      res.send([]);
   
     } else {
       res.json(results[0]).send();
