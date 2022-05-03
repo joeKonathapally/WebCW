@@ -68,7 +68,7 @@ app.post('/signup/', (req, res) => {
     },
     {"headers":{"content-type": "application/json"}}
     ).then(function (response){
-      res.send({UserID: response.data.UserID});
+      res.json({UserID: response.data.UserID}).send();
     });
   }).catch(function (error){
     res.send('Username is taken!');
