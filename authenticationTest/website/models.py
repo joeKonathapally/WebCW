@@ -13,7 +13,8 @@ class Note(db.Model):
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     userid = db.Column(db.Integer)
-    username = db.Column(db.String(150))
+    user_name = db.Column(db.String(150))
     email = db.Column(db.String(150))
     password = db.Column(db.String(150))
+    user_type=db.Column(db.String(20))
     notes = db.relationship('Note')
