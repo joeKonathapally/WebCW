@@ -23,10 +23,16 @@ def home():
 
     return render_template("home.html", user=current_user)
 
-@login_required
+@views.route('/posts/')
 def post():
     print("trying redirect post")
     return render_template("post.html", user=current_user)
+
+
+@views.route('/test')
+def test():
+    print("trying redirect test")
+    return render_template("test.html", user=current_user)
 
 
 @views.route('/delete-note', methods=['POST'])
