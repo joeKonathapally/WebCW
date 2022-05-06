@@ -6,12 +6,14 @@ const axios = require('axios');
 require('dotenv').config();
 
 const jwt = require('jsonwebtoken');
+const cors = require("cors");
 
 const dbpath = "http://"+process.env.DB_HOST+":4000/";
 const pnpath = "http://"+process.env.PN_HOST+":3000/";
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(cors());
 
 const port = 6000;
 
@@ -39,7 +41,7 @@ app.get('/getEvents', (req, res) => {
 //Retrieving Events by userID
 app.get('/getEventsbyID/:id', (req, res) => {
   axios.get(dbpath+'events/find/'+req.params.id).then(function (response){
-    if(response.data=="No Event!"){
+    if(response.data=="No such event exists!"){
       res.status(200).send(response.data);
     } else {
       res.status(200).send(response.data);
@@ -50,7 +52,7 @@ app.get('/getEventsbyID/:id', (req, res) => {
 })
 
 // Creating Events by userID
-app.post('/createEvent', (req, res) => {
+app.post('/createEvents', (req, res) => {
   axios.post(
     dbpath+'events/create',
     {
@@ -81,10 +83,10 @@ app.post('/updateEvent/:id', (req, res) => {
     },
     {"headers":{"content-type": "application/json"}}
   ).then(function (response){
-    if(response.data=="No such post exists!"){
+    if(response.data=="No such event exists!"){
       res.status(200).send(response.data);
     } else {
-      res.status(200).send('Successfully updated post!');
+      res.status(200).send('Successfully updated event!');
     }
   }).catch(function (error){
     res.send(error);
@@ -94,8 +96,8 @@ app.post('/updateEvent/:id', (req, res) => {
 // Deleting Events based on PostID
 app.get('/deleteEventsbyID/:id', (req, res) => {
   axios.get(dbpath+'events/delete/'+req.params.id).then(function (response){
-    if(response.data=="No posts!"){
-      res.status(200).send([]);
+    if(response.data=="No Events!"){
+      res.status(200).send("No such event exists!");
     } else {
       res.status(200).send(response.data);
     }
