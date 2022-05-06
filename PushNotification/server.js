@@ -4,8 +4,11 @@ const axios = require('axios');
 require('dotenv').config();
 const bodyParser = require('body-parser');
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {cors:{origin:"*"}});
 const jwt = require('jsonwebtoken');
+const cors = require("cors");
+
+app.use(cors());
 
 const path = "http://"+process.env.HOST+":4000/"
 
@@ -55,7 +58,7 @@ io.on('connection', (socket) => {
   let validSession = false;
 
   socket.on("whoami", (me) => {
-    const decode = jwt.verify(me,'shhh');
+    const decode = me;
     validSession = true;
     console.log(socket.id);
     axios.get(
@@ -91,7 +94,6 @@ io.on('connection', (socket) => {
         path+'sockets/findBySocketID/'+socket.id,
         {"headers":{"content-type": "application/json",}}
       ).then(function (response){
-        // console.log(response.data.UserID);
         axios.get(
           path+'notifications/findByUserID/'+response.data.UserID,
         ).then(function (response){

@@ -30,19 +30,71 @@ services:
   #   depends_on:
   #     - db
 
-  # pushnotification:
-  #   build:
-  #     context: ./PushNotification
-  #   container_name: push_notification
-  #   restart: always
-  #   hostname: pushnotification
-  #   ports:
-  #     - "3000:3000"
-  #   networks:
-  #     - backend
-  #   depends_on:
-  #     - dbinterface
-  
+  pushnotification:
+    build:
+      context: ./PushNotification
+    container_name: push_notification
+    restart: always
+    hostname: pushnotification
+    ports:
+      - "3000:3000"
+    networks:
+      - backend
+    depends_on:
+      - dbinterface
+
+  authentication:
+    build:
+      context: ./Authentication
+    container_name: authentication
+    restart: always
+    hostname: authentication
+    ports:
+      - "2000:2000"
+    networks:
+      - backend
+    depends_on:
+      - dbinterface
+
+  post:
+    build:
+      context: ./Post
+    container_name: post
+    restart: always
+    hostname: post
+    ports:
+      - "7000:7000"
+    networks:
+      - backend
+    depends_on:
+      - dbinterface
+
+  event:
+    build:
+      context: ./Event
+    container_name: event
+    restart: always
+    hostname: event
+    ports:
+      - "6000:6000"
+    networks:
+      - backend
+    depends_on:
+      - dbinterface
+
+  feed:
+    build:
+      context: ./Feed
+    container_name: feed
+    restart: always
+    hostname: feed
+    ports:
+      - "8000:8000"
+    networks:
+      - backend
+    depends_on:
+      - dbinterface
+
   pgadmin:
     container_name: pgadmin4_container
     image: dpage/pgadmin4
