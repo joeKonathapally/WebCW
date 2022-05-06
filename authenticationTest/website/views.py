@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
 from .models import Note
+import requests
 from . import db
 import json
 
@@ -23,9 +24,19 @@ def home():
 
     return render_template("home.html", user=current_user)
 
-@views.route('/posts/')
+@views.route('/posts', methods = ['GET','POST'])
 def post():
     print("trying redirect post")
+    if request.method == 'POST':
+        print('inside post')
+        print(request.get_json())
+        data = request.get_json()
+        res = requests.post('http://localhost:7000/createPosts', json = data)
+        print("response from server : ",res.text)
+
+        return(res.text)
+
+
     return render_template("post.html", user=current_user)
 
 

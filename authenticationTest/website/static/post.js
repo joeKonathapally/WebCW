@@ -6,7 +6,7 @@ function loadTable() {
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         console.log(this.responseText);
-        var trHTML = ''; 
+        var trHTML = '';
         const objects = JSON.parse(this.responseText);
         // for (let object of objects) {
         console.log("Length = " , Object.keys(objects).length)
@@ -21,31 +21,33 @@ function loadTable() {
       }
     };
   }
-  
+
   loadTable();
 
 
   function showUserCreateBox() {
     Swal.fire({
-      title: 'Create user',
+      title: 'Create Post',
       html:
         '<input id="id" type="hidden">' +
-        '<input id="post" class="swal2-input" placeholder="Post Message">' ,
+        '<input id="cr_post" class="swal2-input" placeholder="Post Message">' ,
       focusConfirm: false,
       preConfirm: () => {
         userCreate();
       }
     })
   }
-  
+
   function userCreate() {
-    const post = document.getElementById("post").value;
+    const post = document.getElementById("cr_post").value;
     var createdby = "Binayak"
 
     const xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "http://localhost:7000/createPosts");
+    // xhttp.open("POST", "http://localhost:7000/createPosts");
+    xhttp.open("POST", "/posts");
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhttp.send(JSON.stringify({ 
+    console.log("post " + post)
+    xhttp.send(JSON.stringify({
       "Message": post, "CreatedBy": 4
     }));
     xhttp.onreadystatechange = function() {
@@ -68,7 +70,7 @@ function loadTable() {
     xhttp.open("GET", "http://localhost:7000/deletePostsbyID/"+ id);
     xhttp.send();
     // xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    // // xhttp.send(JSON.stringify({ 
+    // // xhttp.send(JSON.stringify({
     // //   "id": id
     // // }));
     xhttp.onreadystatechange = function() {
@@ -77,6 +79,6 @@ function loadTable() {
         // Swal.fire(objects['message']);
         Swal.fire(this.responseText);
         loadTable();
-      } 
+      }
     };
   }
