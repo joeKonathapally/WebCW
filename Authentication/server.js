@@ -5,11 +5,14 @@ const axios = require('axios');
 require('dotenv').config();
 const app = express();
 const jwt = require('jsonwebtoken');
+const cors = require("cors");
 
 const dbpath = "http://"+process.env.DB_HOST+":4000/";
 const pnpath = "http://"+process.env.PN_HOST+":3000/";
 
 const port = 2000;
+
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json())
