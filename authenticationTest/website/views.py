@@ -41,26 +41,20 @@ def post():
 
 @views.route('/events', methods = ['GET','POST'])
 @login_required
-<<<<<<< Updated upstream
-def post():
-=======
 def events():
->>>>>>> Stashed changes
     if request.method == 'POST':
         print('inside post')
         print(request.get_json())
         data = request.get_json()
-<<<<<<< Updated upstream
-        res = requests.post('http://localhost:7000/createPosts', json = data)
-=======
-        res = requests.post('http://localhost:6000/createEvents', json = data)
->>>>>>> Stashed changes
+        res = requests.post('http://localhost:6050/createEvents', json = data)
         print("response from server : ",res.text)
 
         return(res.text)
 
 
     return render_template("events.html", user=current_user)
+
+
 
 
 @views.route('/test')
