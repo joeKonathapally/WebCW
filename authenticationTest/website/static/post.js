@@ -1,45 +1,44 @@
-console.log("user id: "+ userid);
+
 function loadTable() {
     const xhttp = new XMLHttpRequest();
     xhttp.open("GET", "http://localhost:7000/getPosts");
     xhttp.send();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        console.log(this.responseText);
         var trHTML = '';
         const objects = JSON.parse(this.responseText);
-        // for (let object of objects) {
-        console.log("Length = " , Object.keys(objects).length)
         for(var i=Object.keys(objects).length;i>0;i--){
-        console.log("i = ",i)
-          var object = objects[i-1];
-          trHTML += '<td>'+object['Message']+'</td>';
-          getId(userid);
-          trHTML += '<td>'+object['CreatedAt']+'</td>';
-          if(object["CreatedByID"] == userid){
-            trHTML += '<td><button type="button" class="btn btn-outline-danger" onclick="userDelete('+object['PostID']+')"><i class="bi bi-trash3"></i></button></td>';
-          }
-          trHTML += "</tr>";
+          const object_new = objects[i-1];
+          const xtp = new XMLHttpRequest();
+          xtp.open("POST", "http://localhost:2000/getUsername");
+          xtp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+          xtp.send(JSON.stringify({
+            "UserID": objects[i-1]['CreatedByID']
+          }));
+          xtp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+                var obj = JSON.parse(this.responseText);
+                name = obj['UserName'];
+                trHTML += '<td>'+JSON.stringify(object_new['Message']).slice(1,-1)+'</td>';
+                trHTML += '<td>'+name+'</td>';
+                trHTML += '<td>'+JSON.stringify(object_new['CreatedAt']).slice(1,-1)+'</td>';
+                if(JSON.stringify(object_new["CreatedByID"]) == userid){
+                  trHTML += '<td><button type="button" class="btn btn-outline-danger" onclick="userDelete('+JSON.stringify(object_new['PostID'])+')"><i class="bi bi-trash3"></i></button></td>';
+                }
+                trHTML += "</tr>";
+                console.log(trHTML);
+                document.getElementById("mytable").innerHTML = trHTML;
+              }
+          };
         }
-        document.getElementById("mytable").innerHTML = trHTML;
       }
     };
   }
 
   loadTable();
 
-  function getId(userid){
-    const xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "http://localhost:2000/getUsername");
-    xhttp.send(JSON.stringify({
-      "UserID": userid
-    }));
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          console.log(this.responseText);
-        }
-    };
-  }
+
 
   function showUserCreateBox() {
     Swal.fire({
