@@ -40,7 +40,18 @@ function loadTable() {
 
   loadTable();
 
+  const sockets = io("http://localhost:3000");
 
+  sockets.on("connect", () => {
+    console.log('connected');
+    sockets.emit("whoami", {UserID:2});
+  });
+
+  sockets.on("notification", (payload) => {
+    if(payload.NotificationType=="Post"){
+      loadTable();
+    }
+  });
 
   function showUserCreateBox() {
     Swal.fire({
