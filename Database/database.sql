@@ -109,19 +109,19 @@ INSERT INTO "Users" VALUES(DEFAULT, 'irvingSmith', '12345678', 'irvingSmith@gmai
 INSERT INTO "Users" VALUES(DEFAULT, 'ericAkers', '12345678', 'ericAkers@gmail.com', 'student');
 INSERT INTO "Users" VALUES(DEFAULT, 'howardTulley', '12345678', 'howardTulley@gmail.com', 'alumni');
 
-INSERT INTO "Posts" VALUES(DEFAULT, 'This is a 1 post', '202004031234', '202004031234',1);
-INSERT INTO "Posts" VALUES(DEFAULT, 'This is a 2 post', '202004031234', '202004031234',1);
-INSERT INTO "Posts" VALUES(DEFAULT, 'This is a 3 post', '202004031234', '202004031234',2);
-INSERT INTO "Posts" VALUES(DEFAULT, 'This is a 4 post', '202004031234', '202004031234',2);
-INSERT INTO "Posts" VALUES(DEFAULT, 'This is a 5 post', '202004031234', '202004031234',1);
+INSERT INTO "Posts" VALUES(DEFAULT, 'This is a 1 post', '2020/04/03:12:34', '2020/04/03:12:34',1);
+INSERT INTO "Posts" VALUES(DEFAULT, 'This is a 2 post', '2020/04/02:12:34', '2020/04/03:12:34',1);
+INSERT INTO "Posts" VALUES(DEFAULT, 'This is a 3 post', '2020/04/01:12:34', '2020/04/03:12:34',2);
+INSERT INTO "Posts" VALUES(DEFAULT, 'This is a 4 post', '2020/04/04:12:34', '2020/04/03:12:34',2);
+INSERT INTO "Posts" VALUES(DEFAULT, 'This is a 5 post', '2020/01/03:12:34', '2020/04/03:12:34',1);
 
-INSERT INTO "Events" VALUES(DEFAULT, 'Event Title 1','This is a Event no 1', '202004031234', '202004031234',1);
-INSERT INTO "Events" VALUES(DEFAULT,'Event Title 2', 'This is a Event no 2', '202004031234', '202004031234',1);
-INSERT INTO "Events" VALUES(DEFAULT, 'Event Title 3','This is a Event no 3', '202004031234', '202004031234',2);
-INSERT INTO "Events" VALUES(DEFAULT, 'Event Title 4','This is a Event no 4', '202004031234', '202004031234',2);
-INSERT INTO "Events" VALUES(DEFAULT,'Event Title 5', 'This is a Event no 5', '202004031234', '202004031234',1);
-INSERT INTO "Events" VALUES(DEFAULT, 'Event Title 6','This is a Event no 6', '202004031234', '202004031234',1);
-INSERT INTO "Events" VALUES(DEFAULT,'Event Title 7', 'This is a Event no 7', '202004031234', '202004031234',1);
-INSERT INTO "Events" VALUES(DEFAULT, 'Event Title 8','This is a Event no 8', '202004031234', '202004031234',2);
-INSERT INTO "Events" VALUES(DEFAULT, 'Event Title 9','This is a Event no 9', '202004031234', '202004031234',2);
-INSERT INTO "Events" VALUES(DEFAULT,'Event Title 10', 'This is a Event no 10', '202004031234', '202004031234',1);
+INSERT INTO "Events" VALUES(DEFAULT, 'Event Title 1','This is a Event no 1', '2020/01/02:12:34', '2020/04/03:12:34',1);
+INSERT INTO "Events" VALUES(DEFAULT,'Event Title 2', 'This is a Event no 2', '2020/02/03:12:34', '2020/04/03:12:34',1);
+INSERT INTO "Events" VALUES(DEFAULT, 'Event Title 3','This is a Event no 3', '2020/03/03:12:34', '2020/04/03:12:34',2);
+INSERT INTO "Events" VALUES(DEFAULT, 'Event Title 4','This is a Event no 4', '2020/04/05:12:34', '2020/04/03:12:34',2);
+INSERT INTO "Events" VALUES(DEFAULT,'Event Title 5', 'This is a Event no 5', '2020/04/01:12:34', '2020/04/03:12:34',1);
+INSERT INTO "Events" VALUES(DEFAULT, 'Event Title 6','This is a Event no 6', '2020/04/03:14:34', '2020/04/03:12:34',1);
+INSERT INTO "Events" VALUES(DEFAULT,'Event Title 7', 'This is a Event no 7', '2020/04/03:18:34', '2020/04/03:12:34',1);
+INSERT INTO "Events" VALUES(DEFAULT, 'Event Title 8','This is a Event no 8', '2020/04/03:10:34', '2020/04/03:12:34',2);
+INSERT INTO "Events" VALUES(DEFAULT, 'Event Title 9','This is a Event no 9', '2020/04/03:12:30', '2020/04/03:12:34',2);
+INSERT INTO "Events" VALUES(DEFAULT,'Event Title 10', 'This is a Event no 10', '2019/04/03:12:34', '2020/04/03:12:34',1);
