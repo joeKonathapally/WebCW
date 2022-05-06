@@ -76,7 +76,7 @@ services:
     restart: always
     hostname: event
     ports:
-      - "6000:6000"
+      - "6050:6050"
     networks:
       - backend
     depends_on:

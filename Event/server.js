@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
 
-const port = 6000;
+const port = 6050;
 
 // APIs for EVENTS: 
 // 1.getEvents - Retrieves all posts
