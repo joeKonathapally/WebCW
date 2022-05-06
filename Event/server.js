@@ -66,6 +66,24 @@ app.post('/createEvents', (req, res) => {
     if(response.data=="'Provide message and creator\'s user ID!'"){
       res.status(200).send(response.data);
     } else {
+      axios.get(dbpath+'users/').then(function (response){
+        for(let i=0;i<response.data.length;i++){
+          if(response.data[i].UserID!=req.body.CreatedBy){
+            console.log('Sending'+response.data[i].UserName);
+            axios.post(pnpath+'notify',
+            {
+              Payload: {
+                NotificationType: "Event",
+                Message: "New event!!!"
+              },
+              UserID: response.data[i].UserID
+            }
+            ).then(function (response){
+              console.log('sent notification prompt');
+            });
+          }
+        }
+      });
       res.status(200).send('Successfully created event!');
     }
   }).catch(function (error){
