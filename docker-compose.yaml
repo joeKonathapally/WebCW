@@ -30,18 +30,18 @@ services:
     depends_on:
       - db
 
-  # pushnotification:
-  #   build:
-  #     context: ./PushNotification
-  #   container_name: push_notification
-  #   restart: always
-  #   hostname: pushnotification
-  #   ports:
-  #     - "3000:3000"
-  #   networks:
-  #     - backend
-  #   depends_on:
-  #     - dbinterface
+  pushnotification:
+    build:
+      context: ./PushNotification
+    container_name: push_notification
+    restart: always
+    hostname: pushnotification
+    ports:
+      - "3000:3000"
+    networks:
+      - backend
+    depends_on:
+      - dbinterface
 
   authentication:
     build:
