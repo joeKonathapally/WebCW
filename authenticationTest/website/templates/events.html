@@ -14,18 +14,18 @@
     <link href="post.css" rel="stylesheet">
   </head>
   <body>
-    {% extends "base.html" %} {% block title %}Posts{% endblock %} {% block
-    content %}
+  {% extends "base.html" %} {% block title %}events{% endblock %} {% block content
+      %}
 
     <div class="container">
       <div class="d-flex bd-highlight mb-3">
-        <div class="me-auto p-2 bd-highlight"><h2>Posts</div>
+        <div class="me-auto p-2 bd-highlight"><h2>Events</div>
         <div class="p-2 bd-highlight">
         </div>
       </div>
 
       <table class="table">
-        <button type="button" class="btn btn-secondary" onclick="showUserCreateBox()">Create Posts</button>
+        <button type="button" class="btn btn-secondary" onclick="showUserCreateBox()">Create Events</button>
       <div class="table-responsive">
         <thead>
           <tr>
@@ -33,7 +33,7 @@
             <!-- <th scope="col">Avatar</th> -->
             <!-- <th scope="col">First</th>
             <th scope="col">Last</th> -->
-            <th scope="col">Posts</th>
+            <th scope="col">Events</th>
             <!-- <th scope="col">Action</th> -->
           </tr>
         </thead>
@@ -45,12 +45,9 @@
       </table>
     </div>
 
-    <script type ="text/javascript">
-    var userid = {{ user.userid }};
-    </script>
     <script
       type="text/javascript"
-      src="{{ url_for('static', filename='post.js') }}"
+      src="{{ url_for('static', filename='events.js') }}"
     ></script>
     <!-- <script src="post.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>

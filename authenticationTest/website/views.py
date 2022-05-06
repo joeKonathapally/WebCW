@@ -25,8 +25,8 @@ def home():
     return render_template("home.html", user=current_user)
 
 @views.route('/posts', methods = ['GET','POST'])
+@login_required
 def post():
-    print("trying redirect post")
     if request.method == 'POST':
         print('inside post')
         print(request.get_json())
@@ -42,6 +42,7 @@ def post():
 
 @views.route('/test')
 def test():
+    print("trying redirect post")
     print("trying redirect test")
     return render_template("test.html", user=current_user)
 

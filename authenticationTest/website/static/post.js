@@ -1,4 +1,4 @@
-
+console.log("user id: "+ userid);
 function loadTable() {
     const xhttp = new XMLHttpRequest();
     xhttp.open("GET", "http://localhost:7000/getPosts");
@@ -14,7 +14,11 @@ function loadTable() {
         console.log("i = ",i)
           var object = objects[i-1];
           trHTML += '<td>'+object['Message']+'</td>';
-          trHTML += '<td><button type="button" class="btn btn-outline-danger" onclick="userDelete('+object['PostID']+')"><i class="bi bi-trash3"></i></button></td>';
+          getId(userid);
+          trHTML += '<td>'+object['CreatedAt']+'</td>';
+          if(object["CreatedByID"] == userid){
+            trHTML += '<td><button type="button" class="btn btn-outline-danger" onclick="userDelete('+object['PostID']+')"><i class="bi bi-trash3"></i></button></td>';
+          }
           trHTML += "</tr>";
         }
         document.getElementById("mytable").innerHTML = trHTML;
@@ -24,6 +28,18 @@ function loadTable() {
 
   loadTable();
 
+  function getId(userid){
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "http://localhost:2000/getUsername");
+    xhttp.send(JSON.stringify({
+      "UserID": userid
+    }));
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          console.log(this.responseText);
+        }
+    };
+  }
 
   function showUserCreateBox() {
     Swal.fire({
@@ -40,7 +56,7 @@ function loadTable() {
 
   function userCreate() {
     const post = document.getElementById("cr_post").value;
-    var createdby = "Binayak"
+    var createdby = userid
 
     const xhttp = new XMLHttpRequest();
     // xhttp.open("POST", "http://localhost:7000/createPosts");
@@ -48,7 +64,7 @@ function loadTable() {
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     console.log("post " + post)
     xhttp.send(JSON.stringify({
-      "Message": post, "CreatedBy": 4
+      "Message": post, "CreatedBy": createdby
     }));
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
