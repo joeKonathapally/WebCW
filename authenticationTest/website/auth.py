@@ -28,7 +28,7 @@ def login():
                 flash('Logged in successfully!', category='success')
                 login_user(temp_user, remember=True)
                 print("logged in")
-                return redirect(url_for('views.home'))
+                return redirect(url_for('views.feeds'))
             else:
                 flash('Incorrect password, try again.', category='error')
         else:
@@ -76,6 +76,6 @@ def sign_up():
             login_user(new_user, remember=True)
             flash('Account created!', category='success')
             print("yes sir")
-            return redirect(url_for('views.home'))
+            return redirect(url_for('views.feeds'))
 
     return render_template("sign_up.html", user=current_user)

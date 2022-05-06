@@ -56,6 +56,23 @@ def events():
 
 
 
+@views.route('/feeds', methods = ['GET','POST'])
+@login_required
+def feeds():
+    # if request.method == 'POST':
+    #     print('inside post')
+    #     print(request.get_json())
+    #     data = request.get_json()
+    #     res = requests.post('http://localhost:6050/createEvents', json = data)
+    #     print("response from server : ",res.text)
+    #
+    #     return(res.text)
+
+
+    return render_template("feed.html", user=current_user)
+
+
+
 
 @views.route('/test')
 def test():
