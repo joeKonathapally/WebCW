@@ -17,17 +17,19 @@ function loadTable() {
           }));
           xtp.onreadystatechange = function() {
               if (this.readyState == 4 && this.status == 200) {
-                console.log(this.responseText);
                 var obj = JSON.parse(this.responseText);
                 name = obj['UserName'];
-                trHTML += '<td>'+JSON.stringify(object_new['Message']).slice(1,-1)+'</td>';
-                trHTML += '<td>'+name+'</td>';
-                trHTML += '<td>'+JSON.stringify(object_new['CreatedAt']).slice(1,-1)+'</td>';
+                trHTML += '<td style="font-size: 20px;">'+JSON.stringify(object_new['Message']).slice(1,-1)+'</td>';
+                trHTML += '<td  style="font-size: 15px;">'+name+'</td>';
+                trHTML += '<td  style="font-size: 15px;">'+JSON.stringify(object_new['CreatedAt']).slice(1,-1)+'</td>';
                 if(JSON.stringify(object_new["CreatedByID"]) == userid){
                   trHTML += '<td><button type="button" class="btn btn-outline-danger" onclick="userDelete('+JSON.stringify(object_new['PostID'])+')"><i class="bi bi-trash3"></i></button></td>';
                 }
+                else {
+                  trHTML += '<td><button type="button" class="btn btn-outline-danger" hidden><i class="bi bi-trash3"></i></button></td>';
+                }
+
                 trHTML += "</tr>";
-                console.log(trHTML);
                 document.getElementById("mytable").innerHTML = trHTML;
               }
           };
@@ -61,13 +63,13 @@ function loadTable() {
     // xhttp.open("POST", "http://localhost:7000/createPosts");
     xhttp.open("POST", "/posts");
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    console.log("post " + post)
+    // console.log("post " + post)
     xhttp.send(JSON.stringify({
       "Message": post, "CreatedBy": createdby
     }));
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        console.log(this.responseText);
+        // console.log(this.responseText);
         // const objects = JSON.parse(this.responseText);
         // console.log("New Obj : ",objects)
         // Swal.fire(objects['message']);
@@ -80,7 +82,7 @@ function loadTable() {
 
 
   function userDelete(id) {
-    console.log("Inside Delete: ", id);
+    // console.log("Inside Delete: ", id);
     const xhttp = new XMLHttpRequest();
     xhttp.open("GET", "http://localhost:7000/deletePostsbyID/"+ id);
     xhttp.send();

@@ -17,7 +17,7 @@
     {% extends "base.html" %} {% block title %}Posts{% endblock %} {% block
     content %}
 
-    <div class="container">
+    <div class="container-fluid">
       <div class="d-flex bd-highlight mb-3">
         <div class="me-auto p-2 bd-highlight"><h2>Posts</div>
         <div class="p-2 bd-highlight">
@@ -27,16 +27,12 @@
       <table class="table">
         <button type="button" class="btn btn-secondary" onclick="showUserCreateBox()">Create Posts</button>
       <div class="table-responsive">
-        <thead>
-          <tr>
-            <!-- <th scope="col">#</th> -->
-            <!-- <th scope="col">Avatar</th> -->
-            <!-- <th scope="col">First</th>
-            <th scope="col">Last</th> -->
-            <th scope="col">Posts</th>
-            <!-- <th scope="col">Action</th> -->
-          </tr>
-        </thead>
+      <colgroup>
+       <col span="1" style="width: 70%;">
+       <col span="1" style="width: 15%;">
+       <col span="1" style="width: 15%;">
+       <col span="1" style="width: 15%;">
+      </colgroup>
         <tbody id="mytable">
           <tr>
             <th scope="row" colspan="3">Loading...</th>
