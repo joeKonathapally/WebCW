@@ -39,6 +39,21 @@ def post():
 
     return render_template("post.html", user=current_user)
 
+@views.route('/events', methods = ['GET','POST'])
+@login_required
+def post():
+    if request.method == 'POST':
+        print('inside post')
+        print(request.get_json())
+        data = request.get_json()
+        res = requests.post('http://localhost:7000/createPosts', json = data)
+        print("response from server : ",res.text)
+
+        return(res.text)
+
+
+    return render_template("events.html", user=current_user)
+
 
 @views.route('/test')
 def test():
