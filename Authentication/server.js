@@ -75,6 +75,18 @@ app.post('/signup/', (req, res) => {
   });
 });
 
+app.post("/getUsername", (req, res) => {
+  axios.get(dbpath+'users/find/'+req.body.UserID).then(
+    function (response){
+      if(response.data.length==0){
+        res.send({});
+      } else {
+        res.send({UserID: response.data.UserID});
+      }
+    }
+  );
+});
+
 app.listen(port, () => {
   console.log(`Success! Your application is running on port ${port}.`);
 });
