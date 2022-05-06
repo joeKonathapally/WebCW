@@ -84,7 +84,7 @@ app.post("/getUsername", (req, res) => {
       if(response.data.length==0){
         res.send({});
       } else {
-        res.send({UserID: response.data.UserID});
+        res.send({UserName: response.data.UserName});
       }
     }
   );
