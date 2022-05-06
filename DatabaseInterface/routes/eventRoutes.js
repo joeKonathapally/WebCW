@@ -31,11 +31,14 @@ router.get('/find/:id', async (req,res) => {
 });
 
 router.post('/create', async (req,res) => {
-  if (req.body.EventTitle==undefined || req.body.Message==undefined || req.query.CreatedBy==undefined){
+  console.log("Runnning Event Router")
+  if (req.body.EventTitle==undefined || req.body.Message==undefined || req.body.CreatedBy==undefined){
+    console.log(req.body)
     res.send('Provide message and creator\'s user ID!');
+    console.log("Error Message in Route")
   } else {
     try{
-      let results = await Event.createEvent(req.body.EventTitle, req.body.Message, req.query.CreatedBy);
+      let results = await Event.createEvent(req.body.EventTitle, req.body.Message, req.body.CreatedBy);
       console.log(results);
       res.send('Successfully created event!');
     } catch(e) {

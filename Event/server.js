@@ -53,6 +53,7 @@ app.get('/getEventsbyID/:id', (req, res) => {
 
 // Creating Events by userID
 app.post('/createEvents', (req, res) => {
+  console.log("Runnning Event in Event")
   axios.post(
     dbpath+'events/create',
     {
