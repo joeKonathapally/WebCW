@@ -7,9 +7,9 @@ router.get('/', async (req,res) => {
     let results = await Post.readPosts();
     if(results.length==0){
       res.send('No posts!');
-  
+
     } else {
-      res.json(results).send();
+        res.json(results).send();
     }
   } catch(e) {
     res.json(e).send();
@@ -21,7 +21,7 @@ router.get('/find/:id', async (req,res) => {
     let results = await Post.readPost(req.params.id);
     if(results.length==0){
       res.send('No such post exists!');
-  
+
     } else {
       res.json(results[0]).send();
     }
@@ -31,11 +31,14 @@ router.get('/find/:id', async (req,res) => {
 });
 
 router.post('/create', async (req,res) => {
-  if (req.body.Message==undefined || req.query.CreatedBy==undefined){
+  console.log("Inside post");
+  console.log(req.body);
+  if (req.body.Message==undefined || req.body.CreatedBy==undefined){
     res.send('Provide message and creator\'s user ID!');
   } else {
     try{
-      let results = await Post.createPost(req.body.Message, req.query.CreatedBy);
+      console.log("Inside post 2");
+      let results = await Post.createPost(req.body.Message, req.body.CreatedBy);
       console.log(results);
       res.send('Successfully created post!');
     } catch(e) {
@@ -85,4 +88,3 @@ router.get('/delete/:id', async (req,res) => {
 });
 
 module.exports = router;
-

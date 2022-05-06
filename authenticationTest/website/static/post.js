@@ -40,6 +40,7 @@ function loadTable() {
 
   loadTable();
 
+<<<<<<< HEAD
   const sockets = io("http://localhost:3000");
 
   sockets.on("connect", () => {
@@ -52,6 +53,9 @@ function loadTable() {
       loadTable();
     }
   });
+=======
+
+>>>>>>> master
 
   function showUserCreateBox() {
     Swal.fire({

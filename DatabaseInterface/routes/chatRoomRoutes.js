@@ -6,7 +6,7 @@ router.get('/', async (req,res) => {
   try{
     let results = await ChatRoom.readChatRooms();
     if(results.length==0){
-      res.send('No chatRooms!');
+      res.send([]);
   
     } else {
       res.json(results).send();
@@ -36,9 +36,9 @@ router.post('/create', async (req,res) => {
   } else {
     try{
       let results = await ChatRoom.createChatRoom(req.body.Title, req.body.ChatRoomType, req.body.CreatedBy);
-      res.send('Successfully created chatRoom!');
+      res.status(200).send('Successfully created chatRoom!');
     } catch(e) {
-      res.json(e).send();
+      res.status(500).json(e).send();
     }
   }
 });

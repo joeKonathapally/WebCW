@@ -20,7 +20,7 @@ router.get('/find/:id', async (req,res) => {
   try{
     let results = await ChatRoomMembership.readChatRoomMembership(req.params.id);
     if(results.length==0){
-      res.send('No such chatroom membership exists!');
+      res.send([]);
   
     } else {
       res.json(results[0]).send();
