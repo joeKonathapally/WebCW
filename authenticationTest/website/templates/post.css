@@ -10,3 +10,7 @@
   td {
       line-height: 3rem;
   }
+
+  tr.spaceUnder>td {
+  padding-bottom: 2em;
+}
