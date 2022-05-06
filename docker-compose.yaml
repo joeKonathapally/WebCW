@@ -82,6 +82,19 @@ services:
     depends_on:
       - dbinterface
 
+  feed:
+    build:
+      context: ./Feed
+    container_name: feed
+    restart: always
+    hostname: feed
+    ports:
+      - "8000:8000"
+    networks:
+      - backend
+    depends_on:
+      - dbinterface
+
   pgadmin:
     container_name: pgadmin4_container
     image: dpage/pgadmin4
