@@ -10,8 +10,8 @@ const timestamp = require('time-stamp');
 
 const dbpath = "http://"+process.env.DB_HOST+":4000/";
 const pnpath = "http://"+process.env.PN_HOST+":3000/";
-const eventpath = "http://"+process.env.DB_HOST+":6000/";
-const postpath = "http://"+process.env.PN_HOST+":7000/";
+const eventpath = "http://"+process.env.EVENT_HOST+":6050/";
+const postpath = "http://"+process.env.POST_HOST+":7000/";
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
