@@ -23,7 +23,7 @@ function loadTable() {
                 trHTML += '<td  style="font-size: 15px;">'+name+'</td>';
                 trHTML += '<td  style="font-size: 15px;">'+JSON.stringify(object_new['CreatedAt']).slice(1,-1)+'</td>';
                 if(JSON.stringify(object_new["CreatedByID"]) == userid){
-                  trHTML += '<td><button type="button" class="btn btn-outline-danger" onclick="userDelete('+JSON.stringify(object_new['PostID'])+')"><i class="bi bi-trash3"></i></button></td>';
+                  trHTML += '<td><button type="button" class="btn btn-danger" onclick="userDelete('+JSON.stringify(object_new['PostID'])+')"><i class="bi bi-trash3"></i></button></td>';
                 }
                 else {
                   trHTML += '<td><button type="button" class="btn btn-outline-danger" hidden><i class="bi bi-trash3"></i></button></td>';

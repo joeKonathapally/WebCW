@@ -6,6 +6,7 @@ function loadTable() {
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         var trHTML = '';
+        var trHTML2 = '';
         json_data = this.responseText;
         // console.log(JSON.parse(json_data)["Feed"]);
        const objects = JSON.parse(json_data)["Feed"];
@@ -23,19 +24,21 @@ function loadTable() {
                 name = obj['UserName'];
                 if(JSON.stringify(object_new['ObjectType']).slice(1,-1) == "event" )
                 {
-                  trHTML += '<td style="font-size: 20px;">'+JSON.stringify(object_new['EventTitle']).slice(1,-1)+'</td>';
-                  trHTML += '<td style="font-size: 20px;">'+JSON.stringify(object_new['Message']).slice(1,-1)+'</td>';
-                  trHTML += '<td  style="font-size: 15px;">'+name+'</td>';
-                  trHTML += '<td  style="font-size: 15px;">'+JSON.stringify(object_new['CreatedAt']).slice(1,-1)+'</td>';
+                  trHTML2 += '<td style="font-size: 15px;">'+JSON.stringify(object_new['EventTitle']).slice(1,-1)+'</td>';
+                  trHTML2 += '<td style="font-size: 17px;">'+JSON.stringify(object_new['Message']).slice(1,-1)+'</td>';
+                  trHTML2 += '<td  style="font-size: 15px;">'+name+'</td>';
+                  // trHTML2 += '<td  style="font-size: 15px;">'+JSON.stringify(object_new['CreatedAt']).slice(1,-1)+'</td>';
                 }
                 else {
                   trHTML += '<td style="font-size: 20px;">'+JSON.stringify(object_new['Message']).slice(1,-1)+'</td>';
-                  trHTML += '<td  style="font-size: 15px;">'+''+'</td>';
+                  // trHTML += '<td  style="font-size: 15px;">'+''+'</td>';
                   trHTML += '<td  style="font-size: 15px;">'+name+'</td>';
-                  trHTML += '<td  style="font-size: 15px;">'+JSON.stringify(object_new['CreatedAt']).slice(1,-1)+'</td>';
+                  // trHTML += '<td  style="font-size: 15px;">'+JSON.stringify(object_new['CreatedAt']).slice(1,-1)+'</td>';
                 }
                 trHTML += "</tr>";
+                trHTML2 += "</tr>";
                 document.getElementById("mytable").innerHTML = trHTML;
+                document.getElementById("mytable2").innerHTML = trHTML2;
               }
           };
         }
@@ -53,7 +56,7 @@ function loadTable() {
   });
 
   sockets.on("notification", (payload) => {
-    if(payload.NotificationType=="Post"){
+    if(payload.NotificationType=="Feed"){
       loadTable();
     }
   });
