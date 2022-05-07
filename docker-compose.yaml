@@ -95,6 +95,19 @@ services:
     depends_on:
       - dbinterface
 
+  chat:
+    build:
+      context: ./Chat
+    container_name: chat
+    restart: always
+    hostname: chat
+    ports:
+      - "9000:9000"
+    networks:
+      - backend
+    depends_on:
+      - dbinterface
+
   pgadmin:
     container_name: pgadmin4_container
     image: dpage/pgadmin4
